@@ -10,3 +10,10 @@ let problem2 limit =
 
 let problem3 number =
     factors number |> Seq.max
+
+let problem4 limit =
+    let values = 
+        [for x in 1..limit do
+         for y in 1..limit do
+         yield x * y]
+    values |> List.filter isPalindrome |> List.max

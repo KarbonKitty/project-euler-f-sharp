@@ -15,3 +15,8 @@ let factors (n:int64) =
     let small = [2L..limit] |> List.filter(fun x -> n % x = 0L)
     let large = small |> List.map(fun x -> n / x)
     small @ large |> List.filter isPrime
+
+let isPalindrome num =
+    let s = num.ToString().ToCharArray()
+    let t = s |> Array.rev
+    s = t
