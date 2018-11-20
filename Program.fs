@@ -1,5 +1,4 @@
-﻿// Learn more about F# at http://fsharp.org
-module Program
+﻿module Program
 
 [<EntryPoint>]
 let main argv =

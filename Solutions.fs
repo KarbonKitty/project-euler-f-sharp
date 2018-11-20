@@ -9,7 +9,7 @@ let problem2 limit =
     fibSeq |> Seq.takeWhile(fun x -> x < limit) |> Seq.filter(fun x -> x % 2 = 0) |> Seq.sum
 
 let problem3 number =
-    factors number |> Seq.max
+    primeFactors number |> set |> Seq.max
 
 let problem4 limit =
     let values = 
