@@ -2,6 +2,8 @@ module Helpers
 
 let fibSeq = Seq.unfold (fun (a,b) -> Some( a+b, (b, a+b) ) ) (0,1)
 
+let square n = n * n
+
 let isPrime (n:int64) =
     match n with
     | x when x = 2L -> true

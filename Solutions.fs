@@ -17,3 +17,9 @@ let problem4 limit =
          for y in 1..limit do
          yield x * y]
     values |> List.filter isPalindrome |> List.max
+
+
+let problem6 limit =
+    let sumOfSquares = [1..limit] |> List.map square |> List.sum
+    let squareOfSum = [1..limit] |> List.sum |> square
+    squareOfSum - sumOfSquares
