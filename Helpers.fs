@@ -25,3 +25,11 @@ let isPalindrome num =
     let s = num.ToString().ToCharArray()
     let t = s |> Array.rev
     s = t
+
+let rec gcd n m =
+    match m with
+        | 0L -> n
+        | _ -> gcd m (n % m)
+
+let lcm n m =
+    n * m / gcd n m

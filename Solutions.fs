@@ -18,6 +18,8 @@ let problem4 limit =
          yield x * y]
     values |> List.filter isPalindrome |> List.max
 
+let problem5 limit =
+    [1L..20L] |> List.reduce lcm
 
 let problem6 limit =
     let sumOfSquares = [1..limit] |> List.map square |> List.sum
