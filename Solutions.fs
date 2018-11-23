@@ -19,9 +19,12 @@ let problem4 limit =
     values |> List.filter isPalindrome |> List.max
 
 let problem5 limit =
-    [1L..20L] |> List.reduce lcm
+    [1L..limit] |> List.reduce lcm
 
 let problem6 limit =
     let sumOfSquares = [1..limit] |> List.map square |> List.sum
     let squareOfSum = [1..limit] |> List.sum |> square
     squareOfSum - sumOfSquares
+
+let problem7 n =
+    naturalNumbersFrom 2L |> Seq.filter isPrime |> Seq.skip (n-1) |> Seq.take 1 |> Seq.find (fun _ -> true)

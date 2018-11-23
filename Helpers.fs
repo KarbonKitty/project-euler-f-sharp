@@ -2,6 +2,8 @@ module Helpers
 
 let fibSeq = Seq.unfold (fun (a,b) -> Some( a+b, (b, a+b) ) ) (0,1)
 
+let naturalNumbersFrom (n:int64) = Seq.unfold (fun (x:int64) -> Some(x, x+1L)) n
+
 let square n = n * n
 
 let isPrime (n:int64) =
@@ -33,3 +35,11 @@ let rec gcd n m =
 
 let lcm n m =
     n * m / gcd n m
+
+let rec sift (a:list<int>) =
+    match a with
+    | [] -> []
+    | h::xs -> h :: sift (xs |> List.filter (fun y -> y % h <> 0))
+
+let primesUpTo n =
+    2 :: sift [3..2..n]
