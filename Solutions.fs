@@ -37,3 +37,6 @@ let problem8 a b =
 let problem9 sum =
     let (a, b, c) = pythagoreanTriplets sum |> Seq.find(fun (a, b, c) -> square a + square b = square c)
     a * b * c
+
+let problem10 limit =
+    2L + ([3L .. 2L .. limit] |> Seq.filter isPrime |> Seq.sum)
