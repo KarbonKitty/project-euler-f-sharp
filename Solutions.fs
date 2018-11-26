@@ -33,3 +33,7 @@ let problem8 a b =
     let x = a.ToString().ToCharArray() |> Array.map (fun y -> bigint (int (y.ToString())))
     let mult a b = [0 .. Array.length a - b] |> List.map (fun c -> a.[c..c+b-1] |> Array.reduce (fun (x:bigint) y -> x * y))
     mult x b |> List.max
+
+let problem9 sum =
+    let (a, b, c) = pythagoreanTriplets sum |> Seq.find(fun (a, b, c) -> square a + square b = square c)
+    a * b * c

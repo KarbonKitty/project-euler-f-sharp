@@ -43,3 +43,11 @@ let rec sift (a:list<int>) =
 
 let primesUpTo n =
     2 :: sift [3..2..n]
+
+let pythagoreanTriplets n =
+    let a = [1 .. n/3]
+    seq {
+        for i in a do
+            for j in [i..n/2] do
+                yield (i, j, n - i - j)
+    }
