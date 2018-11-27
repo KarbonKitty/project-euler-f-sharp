@@ -9,7 +9,7 @@ let problem2 limit =
     fibSeq |> Seq.takeWhile(fun x -> x < limit) |> Seq.filter(fun x -> x % 2 = 0) |> Seq.sum
 
 let problem3 number =
-    primeFactors number |> set |> Seq.max
+    primeFactorsLong number |> set |> Seq.max
 
 let problem4 limit =
     let values = 
@@ -40,3 +40,6 @@ let problem9 sum =
 
 let problem10 limit =
     2L + ([3L .. 2L .. limit] |> Seq.filter isPrime |> Seq.sum)
+
+let problem12 numOfDivisors =
+    triangularNumbers |> Seq.map (fun x -> (x, numOfDistinctFactors x)) |> Seq.find (fun (_, n) -> n > numOfDivisors)

@@ -4,6 +4,8 @@ let fibSeq = Seq.unfold (fun (a,b) -> Some( a+b, (b, a+b) ) ) (0,1)
 
 let naturalNumbersFrom (n:int64) = Seq.unfold (fun (x:int64) -> Some(x, x+1L)) n
 
+let triangularNumbers = Seq.unfold(fun (acc, num) -> Some(num + acc, (num + acc, num + 1))) (0, 1)
+
 let square n = n * n
 
 let isPrime (n:int64) =
@@ -14,14 +16,23 @@ let isPrime (n:int64) =
            let factors = [3L..2L..maxFactor] |> List.filter(fun t -> x % t = 0L)
            List.isEmpty factors
 
-let factors (n:int64) =
+let factorsLong (n:int64) =
     let limit = int64 (ceil (sqrt (float n)))
     let small = [2L..limit] |> List.filter(fun x -> n % x = 0L)
     let large = small |> List.map(fun x -> n / x)
     small @ large
 
-let primeFactors (n:int64) =
-    factors n |> List.filter isPrime
+let factors n =
+    let limit = int (ceil (sqrt (float n)))
+    let small = [2 .. limit] |> List.filter(fun x -> n % x = 0)
+    let large = small |> List.map(fun x -> n / x)
+    1 :: n :: small @ large
+
+let primeFactorsLong (n:int64) =
+    factorsLong n |> List.filter isPrime
+
+let primeFactors n =
+    factors n |> List.map int64 |> List.filter isPrime
 
 let isPalindrome num =
     let s = num.ToString().ToCharArray()
@@ -45,9 +56,11 @@ let primesUpTo n =
     2 :: sift [3..2..n]
 
 let pythagoreanTriplets n =
-    let a = [1 .. n/3]
     seq {
-        for i in a do
-            for j in [i..n/2] do
-                yield (i, j, n - i - j)
+        for a in [1 .. n/3] do
+            for b in [a .. n/2] do
+                yield (a, b, n - a - b)
     }
+
+let numOfDistinctFactors x =
+    factors x |> List.distinct |> List.length
