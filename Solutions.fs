@@ -43,3 +43,6 @@ let problem10 limit =
 
 let problem12 numOfDivisors =
     triangularNumbers |> Seq.map (fun x -> (x, numOfDistinctFactors x)) |> Seq.find (fun (_, n) -> n > numOfDivisors)
+
+let problem13 (xs:List<bigint>) =
+    xs |> List.sum
