@@ -8,6 +8,9 @@ let triangularNumbers = Seq.unfold(fun (acc, num) -> Some(num + acc, (num + acc,
 
 let square n = n * n
 
+let product x =
+    x |> Seq.reduce(fun x y -> x * y)
+
 let isPrime (n:int64) =
     match n with
     | x when x = 2L -> true
