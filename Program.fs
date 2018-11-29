@@ -14,7 +14,8 @@ let main argv =
     // printfn "%O" (Solutions.problem8 (File.ReadAllText @"data\8.txt") 13)
     // printfn "%i" (Solutions.problem9 1000)
     // printfn "%i" (Solutions.problem10 2000000L)
-    // printfn "%i" (Solutions.problem11 (File.ReadAllLines @"data\11.txt") 4)
+    printfn "%A" (Solutions.problem11 (File.ReadAllLines @"data\11.txt") 4)
     // printfn "%A" (Solutions.problem12 500)
-    printfn "%A" (Solutions.problem13 (File.ReadAllLines @"data\13.txt"))
+    // printfn "%A" (Solutions.problem13 (File.ReadAllLines @"data\13.txt"))
+    // printfn "%A" (Solutions.problem14 1000)
     0 // return an integer exit code

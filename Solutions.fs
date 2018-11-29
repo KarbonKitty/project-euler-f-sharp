@@ -44,11 +44,19 @@ let problem10 limit =
 
 let problem11 (xs:string[]) y =
     let a = xs |> Array.map (fun x -> x.Split(' ') |> Array.map int)
-    let x1 = a |> Array.map (fun x -> x |> Seq.windowed y |> Seq.map product |> Seq.max) |> Seq.max
-    x1
+
+    let maxProduct y x =
+        x |> Seq.windowed y |> Seq.map product |> Seq.max
+
+    let rowsMax = a |> Array.map (maxProduct y) |> Seq.max
+    let columnsMax = [0 .. ((a.[0]) |> Array.length) - 1] |> List.map (fun x -> a |> Array.map (fun y -> y.[x])) |> List.map (maxProduct y) |> Seq.max
+    max rowsMax columnsMax
 
 let problem12 numOfDivisors =
     triangularNumbers |> Seq.map (fun x -> (x, numOfDistinctFactors x)) |> Seq.find (fun (_, n) -> n > numOfDivisors)
 
 let problem13 (xs:string[]) =
     xs |> Array.map (fun x -> BigInteger.Parse(x)) |> Array.sum
+
+let problem14 limit =
+    [1 .. limit] |> List.map (fun x -> (x, collatzSequence x |> Seq.length)) |> List.maxBy (fun (_, l) -> l)

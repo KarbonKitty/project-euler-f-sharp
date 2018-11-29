@@ -8,6 +8,8 @@ let triangularNumbers = Seq.unfold(fun (acc, num) -> Some(num + acc, (num + acc,
 
 let square n = n * n
 
+let (|Even|Odd|) x = if x % 2 = 0 then Even else Odd
+
 let product x =
     x |> Seq.reduce(fun x y -> x * y)
 
@@ -67,3 +69,9 @@ let pythagoreanTriplets n =
 
 let numOfDistinctFactors x =
     factors x |> List.distinct |> List.length
+
+let rec collatzSequence x =
+    match x with
+    | 1 -> x :: []
+    | Even -> x :: collatzSequence (x/2)
+    | Odd -> x :: collatzSequence (3 * x + 1)
