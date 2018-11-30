@@ -75,3 +75,61 @@ let rec collatzSequence x =
     | 1 -> x :: []
     | Even -> x :: collatzSequence (x/2)
     | Odd -> x :: collatzSequence (3 * x + 1)
+
+// only works with rectangle grid
+let rightDiagonals (x:'a[][]) =
+    let maxRowIndex = x.[0].Length - 1
+    let maxColumnIndex = (x |> Array.map (fun z -> z.[0])).Length - 1
+
+    let rowDiagonalsSeq =
+        seq {
+            for i in [0 .. maxRowIndex] do
+                yield seq {
+                    let mutable k = 0;
+                    while i + k <= maxRowIndex && k <= maxColumnIndex do
+                        yield x.[k].[i + k]
+                        k <- k + 1
+                }
+        }
+
+    let columnDiagonalsSeq =
+        seq {
+            // we start from 1, because longest diagonal was already done with rows
+            for i in [1 .. maxColumnIndex] do
+                yield seq {
+                    let mutable k = 0;
+                    while i + k <= maxColumnIndex && k <= maxRowIndex do
+                        yield x.[i + k].[k]
+                        k <- k + 1
+                }
+        }
+
+    Seq.append columnDiagonalsSeq rowDiagonalsSeq
+
+let leftDiagonals (x:'a[][]) =
+    let maxRowIndex = x.[0].Length - 1
+    let maxColumnIndex = (x |> Array.map (fun z -> z.[0])).Length - 1
+
+    let rowDiagonalsSeq =
+        seq {
+            for i in [maxRowIndex .. -1 .. 0] do
+                yield seq {
+                    let mutable k = 0;
+                    while i - k >= 0 && k <= maxColumnIndex do
+                        yield x.[k].[i - k]
+                        k <- k + 1
+                }
+        }
+
+    let columnDiagonalsSeq =
+        seq {
+            for i in [1 .. maxColumnIndex] do
+                yield seq {
+                    let mutable k = 0;
+                    while i + k <= maxRowIndex && k <= maxColumnIndex do
+                        yield x.[i + k].[maxColumnIndex - k]
+                        k <- k + 1
+                }
+        }
+
+    Seq.append rowDiagonalsSeq columnDiagonalsSeq

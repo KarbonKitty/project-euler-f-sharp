@@ -50,7 +50,11 @@ let problem11 (xs:string[]) y =
 
     let rowsMax = a |> Array.map (maxProduct y) |> Seq.max
     let columnsMax = [0 .. ((a.[0]) |> Array.length) - 1] |> List.map (fun x -> a |> Array.map (fun y -> y.[x])) |> List.map (maxProduct y) |> Seq.max
-    max rowsMax columnsMax
+
+    let rightDiagonalsMax = rightDiagonals a |> Seq.map(fun x -> List.ofSeq x) |> Seq.filter (fun x -> x.Length >= y) |> Seq.map (maxProduct y) |> Seq.max
+    let leftDiagonalsMax = leftDiagonals a |> Seq.map(fun x -> List.ofSeq x) |> Seq.filter (fun x -> x.Length >= y) |> Seq.map (maxProduct y) |> Seq.max
+
+    max (max rowsMax columnsMax) (max rightDiagonalsMax leftDiagonalsMax)
 
 let problem12 numOfDivisors =
     triangularNumbers |> Seq.map (fun x -> (x, numOfDistinctFactors x)) |> Seq.find (fun (_, n) -> n > numOfDivisors)
