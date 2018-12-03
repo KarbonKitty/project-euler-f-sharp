@@ -132,3 +132,31 @@ let leftDiagonals (x:'a[][]) =
         }
 
     Seq.append rowDiagonalsSeq columnDiagonalsSeq
+
+let countLettersInNumber (map:Map<int, int>) n =
+    let mutable count = 0;
+
+    if n = 1000 then
+        count <- count + map.[1] + map.[1000]
+    else
+        let hundreds = n / 100
+        let rest = n % 100
+        if (hundreds > 0) then
+            count <- count + map.[hundreds] + map.[100]
+
+        let tens = rest / 10
+        let rest2 = rest % 10
+        if (tens > 1) then
+            if (hundreds > 0) then
+                count <- count + 3 // and
+            count <- count + map.[rest - rest2]
+        if (tens = 1) then
+            if (hundreds > 0) then
+                count <- count + 3 // and
+            count <- count + map.[rest]
+        else if (rest2 <> 0) then
+            if ((hundreds > 0) && (tens = 0)) then
+                count <- count + 3 // and
+            count <- count + map.[rest2]
+
+    count

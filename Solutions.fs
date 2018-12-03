@@ -73,3 +73,7 @@ let problem15 gridSize =
 let problem16 power =
     let x = pown 2I power
     x.ToString().ToCharArray() |> Array.map (fun x -> int (x.ToString())) |> Array.sum
+
+let problem17 (lines:string[]) limit =
+    let dict = lines |> Array.map (fun l -> l.Split " " |> Array.map int) |> Array.map (fun a -> (a.[0], a.[1])) |> Map.ofArray
+    [1 .. limit] |> List.map (countLettersInNumber dict) |> List.sum
