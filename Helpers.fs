@@ -70,11 +70,7 @@ let pythagoreanTriplets n =
 let numOfDistinctFactors x =
     factors x |> List.distinct |> List.length
 
-let rec collatzSequence x =
-    match x with
-    | 1 -> x :: []
-    | Even -> x :: collatzSequence (x/2)
-    | Odd -> x :: collatzSequence (3 * x + 1)
+let collatzSequence = Seq.unfold (fun (s:int64) -> if s = 0L then None else if s = 1L then Some(s, 0L) else Some(s, if s % 2L = 0L then (s / 2L) else (3L * s + 1L)))
 
 // only works with rectangle grid
 let rightDiagonals (x:'a[][]) =

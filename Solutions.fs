@@ -62,5 +62,5 @@ let problem12 numOfDivisors =
 let problem13 (xs:string[]) =
     xs |> Array.map (fun x -> BigInteger.Parse(x)) |> Array.sum
 
-let problem14 limit =
-    [1 .. limit] |> List.map (fun x -> (x, collatzSequence x |> Seq.length)) |> List.maxBy (fun (_, l) -> l)
+let problem14 min max =
+    [min .. max] |> List.map (fun x -> (x, collatzSequence x |> Seq.length)) |> List.maxBy (fun (_, l) -> l)
