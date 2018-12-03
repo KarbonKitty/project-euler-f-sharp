@@ -64,3 +64,8 @@ let problem13 (xs:string[]) =
 
 let problem14 min max =
     [min .. max] |> List.map (fun x -> (x, collatzSequence x |> Seq.length)) |> List.maxBy (fun (_, l) -> l)
+
+let problem15 gridSize =
+    let top = [1I .. gridSize * 2I] |> bigProduct
+    let bottom = [1I .. gridSize] |> bigProduct
+    top / (bottom * bottom)

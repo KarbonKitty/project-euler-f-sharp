@@ -13,6 +13,9 @@ let (|Even|Odd|) x = if x % 2 = 0 then Even else Odd
 let product x =
     x |> Seq.reduce(fun x y -> x * y)
 
+let bigProduct (x:seq<bigint>) =
+    x |> Seq.reduce(fun x y -> x * y)
+
 let isPrime (n:int64) =
     match n with
     | x when x = 2L -> true

@@ -1,7 +1,5 @@
 ﻿module Program
 
-open System.IO
-
 [<EntryPoint>]
 let main argv =
     let stopWatch = System.Diagnostics.Stopwatch.StartNew()
@@ -20,6 +18,7 @@ let main argv =
     // printfn "%A" (Solutions.problem12 500)
     // printfn "%A" (Solutions.problem13 (File.ReadAllLines @"data\13.txt"))
     // printfn "%A" (Solutions.problem14 500000L 1000000L)
+    printfn "%A" (Solutions.problem15 20I)
 
     stopWatch.Stop()
 
