@@ -69,3 +69,7 @@ let problem15 gridSize =
     let top = [1I .. gridSize * 2I] |> bigProduct
     let bottom = [1I .. gridSize] |> bigProduct
     top / (bottom * bottom)
+
+let problem16 power =
+    let x = pown 2I power
+    x.ToString().ToCharArray() |> Array.map (fun x -> int (x.ToString())) |> Array.sum
