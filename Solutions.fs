@@ -1,5 +1,6 @@
 module Solutions
 
+open System
 open Helpers
 open System.Numerics
 
@@ -84,3 +85,7 @@ let problem18 (data:string[]) =
         for j in [0 .. goodData.[i].Length - 1] do
             goodData.[i].[j] <- max (goodData.[i].[j] + goodData.[i + 1].[j]) (goodData.[i].[j] + goodData.[i + 1].[j + 1])
     goodData.[0].[0]
+
+let problem19 (s:DateTime) (e:DateTime) =
+    let firstDaysOfMonths = Seq.unfold(fun (d:DateTime) -> Some(d, d.AddMonths(1))) s
+    firstDaysOfMonths |> Seq.takeWhile(fun x -> x <= e) |> Seq.filter(fun x -> x.DayOfWeek = DayOfWeek.Sunday) |> Seq.length
