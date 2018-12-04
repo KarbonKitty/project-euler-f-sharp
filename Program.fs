@@ -22,7 +22,8 @@ let main argv =
     // printfn "%A" (Solutions.problem14 500000L 1000000L)
     // printfn "%A" (Solutions.problem15 20I)
     // printfn "%A" (Solutions.problem16 1000)
-    printfn "%A" (Solutions.problem17 (File.ReadAllLines @"data\17.txt") 1000)
+    // printfn "%A" (Solutions.problem17 (File.ReadAllLines @"data\17.txt") 1000)
+    printfn "%A" (Solutions.problem18 (File.ReadAllLines @"data\18.txt"))
 
     stopWatch.Stop()
 

@@ -77,3 +77,10 @@ let problem16 power =
 let problem17 (lines:string[]) limit =
     let dict = lines |> Array.map (fun l -> l.Split " " |> Array.map int) |> Array.map (fun a -> (a.[0], a.[1])) |> Map.ofArray
     [1 .. limit] |> List.map (countLettersInNumber dict) |> List.sum
+
+let problem18 (data:string[]) =
+    let mutable goodData = data |> Array.map (fun x -> x.Split " " |> Array.map int)
+    for i in [goodData.Length - 2 .. -1 .. 0] do
+        for j in [0 .. goodData.[i].Length - 1] do
+            goodData.[i].[j] <- max (goodData.[i].[j] + goodData.[i + 1].[j]) (goodData.[i].[j] + goodData.[i + 1].[j + 1])
+    goodData.[0].[0]
