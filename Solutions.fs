@@ -89,3 +89,6 @@ let problem18 (data:string[]) =
 let problem19 (s:DateTime) (e:DateTime) =
     let firstDaysOfMonths = Seq.unfold(fun (d:DateTime) -> Some(d, d.AddMonths(1))) s
     firstDaysOfMonths |> Seq.takeWhile(fun x -> x <= e) |> Seq.filter(fun x -> x.DayOfWeek = DayOfWeek.Sunday) |> Seq.length
+
+let problem20 n =
+    factorial n |> digits |> Array.sum

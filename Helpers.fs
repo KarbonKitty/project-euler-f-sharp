@@ -10,11 +10,17 @@ let square n = n * n
 
 let (|Even|Odd|) x = if x % 2 = 0 then Even else Odd
 
+let digits n =
+    n.ToString().ToCharArray() |> Array.map(fun c -> c.ToString()) |> Array.map int
+
 let product x =
     x |> Seq.reduce(fun x y -> x * y)
 
 let bigProduct (x:seq<bigint>) =
     x |> Seq.reduce(fun x y -> x * y)
+
+let factorial n =
+    [1I .. n] |> bigProduct
 
 let isPrime (n:int64) =
     match n with
