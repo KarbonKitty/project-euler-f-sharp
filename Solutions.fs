@@ -92,3 +92,6 @@ let problem19 (s:DateTime) (e:DateTime) =
 
 let problem20 n =
     factorial n |> digits |> Array.sum
+
+let problem21 limit =
+    [1 .. limit] |> List.map (fun x -> (x, properDivisors x |> List.sum)) |> List.filter (fun (a, b) -> a <> b && areAmicable a b) |> List.sumBy (fun (x, _) -> x)

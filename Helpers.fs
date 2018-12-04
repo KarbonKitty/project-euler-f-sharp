@@ -36,11 +36,14 @@ let factorsLong (n:int64) =
     let large = small |> List.map(fun x -> n / x)
     small @ large
 
-let factors n =
+let properDivisors n =
     let limit = int (ceil (sqrt (float n)))
     let small = [2 .. limit] |> List.filter(fun x -> n % x = 0)
     let large = small |> List.map(fun x -> n / x)
-    1 :: n :: small @ large
+    1 :: small @ large
+
+let factors n =
+    n :: properDivisors n
 
 let primeFactorsLong (n:int64) =
     factorsLong n |> List.filter isPrime
@@ -166,3 +169,6 @@ let countLettersInNumber (map:Map<int, int>) n =
             count <- count + map.[rest2]
 
     count
+
+let areAmicable x y =
+    (properDivisors x |> List.sum = y) && (properDivisors y |> List.sum = x)
