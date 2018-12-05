@@ -42,7 +42,7 @@ let properDivisors n =
     let limit = int (ceil (sqrt (float n)))
     let small = [2 .. limit] |> List.filter(fun x -> n % x = 0)
     let large = small |> List.map(fun x -> n / x)
-    1 :: small @ large
+    1 :: small @ large |> List.distinct
 
 let factors n =
     n :: properDivisors n
@@ -52,6 +52,9 @@ let primeFactorsLong (n:int64) =
 
 let primeFactors n =
     factors n |> List.map int64 |> List.filter isPrime
+
+let isAbundant x =
+    (properDivisors x |> List.sum) > x
 
 let isPalindrome num =
     let s = num.ToString().ToCharArray()
