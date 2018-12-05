@@ -28,7 +28,8 @@ let main argv =
     // printfn "%A" (Solutions.problem18 (File.ReadAllLines @"data\18.txt"))
     // printfn "%A" (Solutions.problem19 (DateTime.Parse "01.01.1901") (DateTime.Parse "31.12.2000"))
     // printfn "%A" (Solutions.problem20 100I)
-    printfn "%A" (Solutions.problem21 10000)
+    // printfn "%A" (Solutions.problem21 10000)
+    printfn "%A" (Solutions.problem22 (File.ReadAllLines @"data\22.txt"))
 
     stopWatch.Stop()
 
