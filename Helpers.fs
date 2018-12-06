@@ -21,6 +21,11 @@ let product x =
 let bigProduct (x:seq<bigint>) =
     x |> Seq.reduce(fun x y -> x * y)
 
+let smallFactorial n =
+    match n with
+    | 0 -> 1
+    | _ -> [1 .. n] |> product
+
 let factorial n =
     [1I .. n] |> bigProduct
 

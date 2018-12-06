@@ -104,3 +104,17 @@ let problem23 limit =
     let abundantNumbers = [12 .. limit] |> List.filter isAbundant
     let abundantNumberSums = [ for a in abundantNumbers do yield! [ for b in abundantNumbers do yield a + b ]] |> List.distinct
     [1 .. limit] |> List.filter (fun x -> not (List.contains x abundantNumberSums)) |> List.sum
+
+let problem24 (x:int list) n =
+    let rec f acc (a:int list) n =
+        let x = smallFactorial (a.Length - 1)
+        let i = n / x
+        let r = a.[i]
+        let rs = a |> List.except [a.[i]]
+        let t = n - i * x
+        if rs.Length = 0 then
+            (r :: acc, rs, t)
+        else
+            f (r :: acc) rs t
+    let t, _, _ = f [] x (n - 1)
+    t |> List.rev
