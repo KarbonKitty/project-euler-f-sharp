@@ -3,6 +3,7 @@ module Solutions
 open System
 open Helpers
 open System.Numerics
+open System.Numerics
 
 let problem1 limit =
     [1..limit - 1] |> List.filter(fun x -> x % 3 = 0 || x % 5 = 0) |> List.sum
@@ -118,3 +119,6 @@ let problem24 (x:int list) n =
             f (r :: acc) rs t
     let t, _, _ = f [] x (n - 1)
     t |> List.rev
+
+let problem25 n =
+    (largeFib |> Seq.takeWhile (fun x -> x < (BigInteger.Pow(10I, n - 1)) ) |> Seq.length) + 1

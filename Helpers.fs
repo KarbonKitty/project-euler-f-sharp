@@ -1,6 +1,8 @@
 module Helpers
 
-let fibSeq = Seq.unfold (fun (a,b) -> Some( a+b, (b, a+b) ) ) (0,1)
+let fibSeq = Seq.unfold (fun (a,b) -> Some( b, (b, a+b) ) ) (0,1)
+
+let largeFib = Seq.unfold (fun (a, b) -> Some( b, (b, a + b))) (0I, 1I)
 
 let naturalNumbersFrom (n:int64) = Seq.unfold (fun (x:int64) -> Some(x, x+1L)) n
 
