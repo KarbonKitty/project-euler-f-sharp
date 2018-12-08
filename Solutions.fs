@@ -122,3 +122,6 @@ let problem24 (x:int list) n =
 
 let problem25 n =
     (largeFib |> Seq.takeWhile (fun x -> x < (BigInteger.Pow(10I, n - 1)) ) |> Seq.length) + 1
+
+let problem26 limit =
+    dfcl limit

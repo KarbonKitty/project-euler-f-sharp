@@ -184,3 +184,26 @@ let countLettersInNumber (map:Map<int, int>) n =
 
 let areAmicable x y =
     (properDivisors x |> List.sum = y) && (properDivisors y |> List.sum = x)
+
+// terrible copy of C# variant, but no better idea for now
+let dfcl n =
+    let mutable rs = []
+    let mutable max = 0
+    let mutable chosen = 0
+    for d in [2 .. n] do
+        let mutable found = false
+        let mutable a = 1
+        while a <> 0 do 
+            let mutable rest = a % d
+            if ((not found) && (rs |> List.contains rest)) then
+                found <- true
+                rs <- []
+            else if (found && (rs |> List.contains rest)) then
+                if (rs.Length > max) then
+                    max <- rs.Length
+                    chosen <- d
+                rest <- 0
+            else
+                rs <- rest :: rs
+            a <- rest * 10
+    chosen
