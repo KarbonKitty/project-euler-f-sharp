@@ -101,6 +101,7 @@ let problem22 (names:string[]) =
     let parsedNames = names |> Array.map (fun x -> x.Split "," |> Array.map (fun y -> y.Replace("\"", "") )) |> Array.concat |> Array.sort
     parsedNames |> Array.mapi (fun i n -> (n |> Seq.map (fun x -> letterValues.[x]) |> Seq.sum) * (i + 1)) |> Array.fold (fun acc el -> acc + bigint el) 0I
 
+// this is very slow (second line 7 seconds, third one 13 seconds)
 let problem23 limit =
     let abundantNumbers = [12 .. limit] |> List.filter isAbundant
     let abundantNumberSums = [ for a in abundantNumbers do yield! [ for b in abundantNumbers do yield a + b ]] |> List.distinct
@@ -122,3 +123,8 @@ let problem24 (x:int list) n =
 
 let problem25 n =
     (largeFib |> Seq.takeWhile (fun x -> x < (BigInteger.Pow(10I, n - 1)) ) |> Seq.length) + 1
+
+// error checking ommited, but size needs to be odd
+let problem28 size =
+    let n = (size - 1) / 2
+    (((16 * n * n * n) + (30 * n * n) + (26 * n)) / 3) + 1
