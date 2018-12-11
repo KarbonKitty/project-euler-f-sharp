@@ -207,3 +207,9 @@ let dfcl n =
                 rs <- rest :: rs
             a <- rest * 10
     chosen
+
+let fifthPowersOfDigits = [0 .. 9] |> List.map (fun x -> pown x 5)
+
+let fifthPowersOfDigitsSum n =
+    let digits = digits n
+    digits |> Array.map (fun x -> fifthPowersOfDigits.[x]) |> Array.sum

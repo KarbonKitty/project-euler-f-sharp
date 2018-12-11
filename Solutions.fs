@@ -147,3 +147,6 @@ let problem28 size =
 
 let problem29 maxA maxB =
     [for a in 2I .. maxA do yield! [for b in 2 .. maxB do yield pown a b]] |> List.distinct |> List.length
+
+let problem30 =
+    [2 .. (6 * pown 9 5)] |> List.filter (fun x -> x = (fifthPowersOfDigitsSum x)) |> List.sum
