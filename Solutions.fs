@@ -144,3 +144,6 @@ let problem27 maxA maxB =
 let problem28 size =
     let n = (size - 1) / 2
     (((16 * n * n * n) + (30 * n * n) + (26 * n)) / 3) + 1
+
+let problem29 maxA maxB =
+    [for a in 2I .. maxA do yield! [for b in 2 .. maxB do yield pown a b]] |> List.distinct |> List.length
