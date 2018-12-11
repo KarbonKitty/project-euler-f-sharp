@@ -228,3 +228,11 @@ let rec coinCount total index =
     | _ when total < 0 -> 0
     | _ when index <= 0 && total >= 1 -> 0
     | _ -> (coinCount total (index - 1)) + (coinCount (total - coins.[index - 1]) index)
+
+let isPandigital x =
+    let digitsArr = digits x
+    let allDigits = Set [1; 2; 3; 4; 5; 6; 7; 8; 9]
+    if digitsArr.Length <> allDigits.Count then
+        false
+    else
+        (digitsArr |> Set.ofArray) = allDigits

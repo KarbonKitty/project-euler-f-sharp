@@ -153,3 +153,6 @@ let problem30 =
 
 let problem31 total =
     coinCount total coins.Length
+
+let problem32 =
+    [for a in 2 .. 99 do yield! [for b in 101 .. 9999 do yield (a * b, (string a) + (string b) + (string (a * b)))]] |> List.filter (fun (_, x) -> isPandigital x) |> List.distinctBy (fun (x, _) -> x) |> List.sumBy (fun (x, _) -> x)
