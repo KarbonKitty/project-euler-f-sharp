@@ -101,6 +101,7 @@ let problem22 (names:string[]) =
     let parsedNames = names |> Array.map (fun x -> x.Split "," |> Array.map (fun y -> y.Replace("\"", "") )) |> Array.concat |> Array.sort
     parsedNames |> Array.mapi (fun i n -> (n |> Seq.map (fun x -> letterValues.[x]) |> Seq.sum) * (i + 1)) |> Array.fold (fun acc el -> acc + bigint el) 0I
 
+// this is very slow (second line 7 seconds, third one 13 seconds)
 let problem23 limit =
     let abundantNumbers = [12 .. limit] |> List.filter isAbundant
     let abundantNumberSums = [ for a in abundantNumbers do yield! [ for b in abundantNumbers do yield a + b ]] |> List.distinct
@@ -141,3 +142,36 @@ let problem27 maxA maxB =
     let (a, b, _) = seqs |> Seq.maxBy (fun (_, _, l) -> l)
     a * b
 
+// error checking ommited, but size needs to be odd
+let problem28 size =
+    let n = (size - 1) / 2
+    (((16 * n * n * n) + (30 * n * n) + (26 * n)) / 3) + 1
+
+let problem29 maxA maxB =
+    [for a in 2I .. maxA do yield! [for b in 2 .. maxB do yield pown a b]] |> List.distinct |> List.length
+
+let problem30 =
+    [2 .. (6 * pown 9 5)] |> List.filter (fun x -> x = (fifthPowersOfDigitsSum x)) |> List.sum
+
+let problem31 total =
+    coinCount total coins.Length
+
+let problem32 =
+    [for a in 2 .. 99 do yield! [for b in 101 .. 9999 do yield (a * b, (string a) + (string b) + (string (a * b)))]] |> List.filter (fun (_, x) -> isPandigital x) |> List.distinctBy (fun (x, _) -> x) |> List.sumBy (fun (x, _) -> x)
+
+let problem33 =
+    let f n =
+        let x = n % 10
+        let y = n / 100
+        let z = (n / 10) % 10
+        let a1 = (10 * x) + y
+        let a2 = x
+        let b1 = (10 * y) + z
+        let b2 = z
+        x > 0 && y > 0 && z > 0 && x <> y && (a1 * b2) = (a2 * b1), a2, b2
+
+    let t = [111 .. 1000] |> List.map f |> List.filter (fun (x, _, _) -> x) |> List.map (fun (_, y, z) -> (y, z)) |> List.reduce (fun a x -> (fst a * fst x), (snd a * snd x))
+    snd t / fst t
+
+let problem34 =
+    [3 .. (6 * smallFactorial 9)] |> List.filter (fun x -> x = (digitFactorialsSum x)) |> List.sum

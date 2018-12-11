@@ -207,3 +207,38 @@ let dfcl n =
                 rs <- rest :: rs
             a <- rest * 10
     chosen
+
+let fifthPowersOfDigits = [0 .. 9] |> List.map (fun x -> pown x 5)
+
+let fifthPowersOfDigitsSum n =
+    let digits = digits n
+    digits |> Array.map (fun x -> fifthPowersOfDigits.[x]) |> Array.sum
+
+let exceptLast xs =
+    let last = xs |> List.last
+    xs |> List.except last
+
+let coins = [1; 2; 5; 10; 20; 50; 100; 200]
+
+// based on http://www.algorithmist.com/index.php/Coin_Change
+// TODO: memoization might be nice, but it's still less than 200 ms
+let rec coinCount total index =
+    match total with
+    | 0 -> 1
+    | _ when total < 0 -> 0
+    | _ when index <= 0 && total >= 1 -> 0
+    | _ -> (coinCount total (index - 1)) + (coinCount (total - coins.[index - 1]) index)
+
+let isPandigital x =
+    let digitsArr = digits x
+    let allDigits = Set [1; 2; 3; 4; 5; 6; 7; 8; 9]
+    if digitsArr.Length <> allDigits.Count then
+        false
+    else
+        (digitsArr |> Set.ofArray) = allDigits
+
+let digitFactorials = [0 .. 9] |> List.map smallFactorial
+
+let digitFactorialsSum n =
+    let digits = digits n
+    digits |> Array.map (fun x -> digitFactorials.[x]) |> Array.sum
