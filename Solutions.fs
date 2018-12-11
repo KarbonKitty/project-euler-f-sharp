@@ -170,3 +170,6 @@ let problem33 =
 
     let t = [111 .. 1000] |> List.map f |> List.filter (fun (x, _, _) -> x) |> List.map (fun (_, y, z) -> (y, z)) |> List.reduce (fun a x -> (fst a * fst x), (snd a * snd x))
     snd t / fst t
+
+let problem34 =
+    [3 .. (6 * smallFactorial 9)] |> List.filter (fun x -> x = (digitFactorialsSum x)) |> List.sum

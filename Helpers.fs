@@ -236,3 +236,9 @@ let isPandigital x =
         false
     else
         (digitsArr |> Set.ofArray) = allDigits
+
+let digitFactorials = [0 .. 9] |> List.map smallFactorial
+
+let digitFactorialsSum n =
+    let digits = digits n
+    digits |> Array.map (fun x -> digitFactorials.[x]) |> Array.sum
