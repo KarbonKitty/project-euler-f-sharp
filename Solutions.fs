@@ -124,6 +124,22 @@ let problem24 (x:int list) n =
 let problem25 n =
     (largeFib |> Seq.takeWhile (fun x -> x < (BigInteger.Pow(10I, n - 1)) ) |> Seq.length) + 1
 
+let problem26 limit =
+    dfcl limit
+
+let problem27 maxA maxB =
+    let bs = primesUpTo maxB
+    let abs = bs |> List.map (fun x -> [(-x) .. x] |> List.map (fun y -> (x, y)) ) |> List.concat
+    let generator a b =
+        seq {
+            for n in [1 .. b-1] do
+                let x = ((square n) + a * n + b)
+                yield x
+        }
+    let seqs = abs |> List.map (fun (b, a) -> (a, b, generator a b |> Seq.takeWhile (fun x -> isPrime (int64 x)) |> Seq.length))
+    let (a, b, _) = seqs |> Seq.maxBy (fun (_, _, l) -> l)
+    a * b
+
 // error checking ommited, but size needs to be odd
 let problem28 size =
     let n = (size - 1) / 2
