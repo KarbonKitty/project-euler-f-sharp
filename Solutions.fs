@@ -150,3 +150,6 @@ let problem29 maxA maxB =
 
 let problem30 =
     [2 .. (6 * pown 9 5)] |> List.filter (fun x -> x = (fifthPowersOfDigitsSum x)) |> List.sum
+
+let problem31 total =
+    coinCount total coins.Length
