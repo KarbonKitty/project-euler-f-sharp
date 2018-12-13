@@ -173,3 +173,10 @@ let problem33 =
 
 let problem34 =
     [3 .. (6 * smallFactorial 9)] |> List.filter (fun x -> x = (digitFactorialsSum x)) |> List.sum
+
+let problem35 limit =
+    let rotations x = Seq.unfold (fun (s: int * bool) -> if (snd s && (fst s) = x) then None else Some(fst s, (rotate (fst s), true))) (x, false)
+    let primes = sieve limit |> List.filter (fun x -> not (Array.contains 0 (x |> digits)))
+    let primesSet = Set primes
+    primes |> List.map (fun p -> rotations p |> List.ofSeq) |> List.filter (fun x -> x |> List.forall (fun y -> Set.contains y primesSet)) |> List.concat |> List.distinct |> List.length
+

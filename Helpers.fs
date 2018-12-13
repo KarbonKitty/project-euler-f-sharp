@@ -81,6 +81,16 @@ let rec sift (a:list<int>) =
     | [] -> []
     | h::xs -> h :: sift (xs |> List.filter (fun y -> y % h <> 0))
 
+let sieve limit =
+    let mutable current = 3
+    let mutable primes = [2]
+    let mutable numbers = [|3 .. 2 .. limit|]
+    while (current * current) < limit do
+        current <- numbers |> Array.head
+        primes <- current :: primes
+        numbers <- numbers |> Array.filter (fun x -> x % current <> 0)
+    primes @ List.ofArray numbers
+
 let primesUpTo n =
     2 :: sift [3..2..n]
 
@@ -242,3 +252,8 @@ let digitFactorials = [0 .. 9] |> List.map smallFactorial
 let digitFactorialsSum n =
     let digits = digits n
     digits |> Array.map (fun x -> digitFactorials.[x]) |> Array.sum
+
+let rotate x =
+    let lastDigit = x % 10
+    let numberOfDigits = digits x |> Array.length
+    x / 10 + (lastDigit * pown 10 (numberOfDigits - 1))
