@@ -127,6 +127,8 @@ let problem25 n =
 let problem26 limit =
     dfcl limit
 
+// should we incorporate maxA somehow?
+// also, it takes 1500 ms, maybe it can go faster?
 let problem27 maxA maxB =
     let bs = primesUpTo maxB
     let abs = bs |> List.map (fun x -> [(-x) .. x] |> List.map (fun y -> (x, y)) ) |> List.concat
