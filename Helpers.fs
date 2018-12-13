@@ -68,6 +68,11 @@ let isPalindrome num =
     let t = s |> Array.rev
     s = t
 
+let isPalindromeInBase (b:int) (num:int) =
+    let s = System.Convert.ToString(num, b).ToCharArray()
+    let t = s |> Array.rev
+    s = t
+
 let rec gcd n m =
     match m with
         | 0L -> n

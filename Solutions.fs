@@ -180,3 +180,6 @@ let problem35 limit =
     let primesSet = Set primes
     primes |> List.map (fun p -> rotations p |> List.ofSeq) |> List.filter (fun x -> x |> List.forall (fun y -> Set.contains y primesSet)) |> List.concat |> List.distinct |> List.length
 
+let problem36 limit =
+    let isBinaryPalindromic = isPalindromeInBase 2
+    [1 .. limit] |> List.filter (fun x -> isPalindrome x && isBinaryPalindromic x) |> List.sum
