@@ -185,3 +185,30 @@ let problem35 limit =
 let problem36 limit =
     let isBinaryPalindromic = isPalindromeInBase 2
     [1 .. limit] |> List.filter (fun x -> isPalindrome x && isBinaryPalindromic x) |> List.sum
+
+// this is not really all that functional
+// TODO: think about better algorithm
+let problem37 =
+    let rightTruncs x = Seq.unfold (fun s -> if s > 0L then Some(s, s / 10L) else None) x
+
+    let round size lastRoundResults =
+        let a = lastRoundResults |> List.map (fun p -> [1L .. 10L] |> List.map (fun a -> (a * size) + p) |> List.filter isPrime) |> List.concat
+
+        let r = a |> List.filter (fun x -> rightTruncs x |> Seq.forall isPrime)
+
+        a, r
+
+    let mutable bothTrunc = []
+    let mutable lastRoundResults = [3L; 7L]
+    let mutable size = 1L
+
+    while bothTrunc.Length < 11 do
+        size <- size * 10L
+
+        let candidates, results = round size lastRoundResults
+
+        lastRoundResults <- candidates
+
+        bothTrunc <- bothTrunc @ results
+
+    bothTrunc |> List.sum
