@@ -212,3 +212,20 @@ let problem37 =
         bothTrunc <- bothTrunc @ results
 
     bothTrunc |> List.sum
+
+// still not very functional
+// TODO: work on the algorithm some more
+let problem38 =
+    let mutable i = 1
+    let mutable s = ""
+    let pandigitals =
+        [for size in [10; 100; 1000; 10000] do
+            let start = (size / 10) * 9
+            for n in start .. size do
+                i <- 1
+                s <- ""
+                while s.Length < 9 do
+                    s <- s + (n * i).ToString()
+                    i <- i + 1
+                if isPandigital s then yield s]
+    pandigitals |> List.sort |> List.last
