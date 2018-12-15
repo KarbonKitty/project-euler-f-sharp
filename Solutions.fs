@@ -236,3 +236,9 @@ let problem39 limit =
                     for b in a .. p / 2 do
                         if (a * a) + (b * b) = ((p - b - a) * (p - b - a)) then yield p]
     l |> List.groupBy (fun x -> x) |> List.maxBy (fun (k, l) -> l.Length)
+
+let problem40 =
+    let champernowne = seq {for i in 1 .. 500000 do yield! digits i}
+    (champernowne |> Seq.head) * (champernowne |> Seq.skip 9 |> Seq.head) * (champernowne |> Seq.skip 99 |> Seq.head) * (champernowne |> Seq.skip 999 |> Seq.head) * (champernowne |> Seq.skip 9999 |> Seq.head) * (champernowne |> Seq.skip 99999 |> Seq.head) * (champernowne |> Seq.skip 999999 |> Seq.head)
+
+

@@ -46,7 +46,8 @@ let main argv =
     // printfn "%A" (Solutions.problem36 1000000)
     // printfn "%A" (Solutions.problem37)
     // printfn "%A" (Solutions.problem38)
-    printfn "%A" (Solutions.problem39 1000)
+    // printfn "%A" (Solutions.problem39 1000)
+    printfn "%A" (Solutions.problem40)
 
     stopWatch.Stop()
 
