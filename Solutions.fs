@@ -3,9 +3,9 @@ module Solutions
 open System
 open Helpers
 open System.Numerics
-open System.Numerics
 
 let problem1 limit =
+    printfn "%A" 1
     [1..limit - 1] |> List.filter(fun x -> x % 3 = 0 || x % 5 = 0) |> List.sum
 
 let problem2 limit =
@@ -150,16 +150,16 @@ let problem28 size =
 let problem29 maxA maxB =
     [for a in 2I .. maxA do yield! [for b in 2 .. maxB do yield pown a b]] |> List.distinct |> List.length
 
-let problem30 =
+let problem30 () =
     [2 .. (6 * pown 9 5)] |> List.filter (fun x -> x = (fifthPowersOfDigitsSum x)) |> List.sum
 
 let problem31 total =
     coinCount total coins.Length
 
-let problem32 =
+let problem32 () =
     [for a in 2 .. 99 do yield! [for b in 101 .. 9999 do yield (a * b, (string a) + (string b) + (string (a * b)))]] |> List.filter (fun (_, x) -> isPandigital x) |> List.distinctBy (fun (x, _) -> x) |> List.sumBy (fun (x, _) -> x)
 
-let problem33 =
+let problem33 () =
     let f n =
         let x = n % 10
         let y = n / 100
@@ -173,7 +173,7 @@ let problem33 =
     let t = [111 .. 1000] |> List.map f |> List.filter (fun (x, _, _) -> x) |> List.map (fun (_, y, z) -> (y, z)) |> List.reduce (fun a x -> (fst a * fst x), (snd a * snd x))
     snd t / fst t
 
-let problem34 =
+let problem34 () =
     [3 .. (6 * smallFactorial 9)] |> List.filter (fun x -> x = (digitFactorialsSum x)) |> List.sum
 
 let problem35 limit =
@@ -188,7 +188,7 @@ let problem36 limit =
 
 // this is not really all that functional
 // TODO: think about better algorithm
-let problem37 =
+let problem37 () =
     let rightTruncs x = Seq.unfold (fun s -> if s > 0L then Some(s, s / 10L) else None) x
 
     let round size lastRoundResults =
@@ -215,7 +215,7 @@ let problem37 =
 
 // still not very functional
 // TODO: work on the algorithm some more
-let problem38 =
+let problem38 () =
     let mutable i = 1
     let mutable s = ""
     let pandigitals =
@@ -237,8 +237,9 @@ let problem39 limit =
                         if (a * a) + (b * b) = ((p - b - a) * (p - b - a)) then yield p]
     l |> List.groupBy (fun x -> x) |> List.maxBy (fun (k, l) -> l.Length)
 
-let problem40 =
+let problem40 () =
     let champernowne = seq {for i in 1 .. 500000 do yield! digits i}
     (champernowne |> Seq.head) * (champernowne |> Seq.skip 9 |> Seq.head) * (champernowne |> Seq.skip 99 |> Seq.head) * (champernowne |> Seq.skip 999 |> Seq.head) * (champernowne |> Seq.skip 9999 |> Seq.head) * (champernowne |> Seq.skip 99999 |> Seq.head) * (champernowne |> Seq.skip 999999 |> Seq.head)
 
-
+let problem41 () =
+    (sieve 7654321) |> List.sortDescending |> List.find isShortPandigital

@@ -17,6 +17,24 @@ let letterValues = [ 'A', 1; 'B', 2; 'C', 3; 'D', 4; 'E', 5; 'F', 6; 'G', 7; 'H'
 let digits n =
     n.ToString().ToCharArray() |> Array.map(fun c -> c.ToString()) |> Array.map int
 
+let isPandigital x =
+    let digitsArr = digits x
+    let allDigits = Set [1; 2; 3; 4; 5; 6; 7; 8; 9]
+    if digitsArr.Length <> allDigits.Count then
+        false
+    else
+        (digitsArr |> Set.ofArray) = allDigits
+
+let isKPandigital k x =
+    let digitsArr = digits x
+    let digitsTillK = Set [ 1 .. k ]
+    if digitsArr.Length <> digitsTillK.Count then
+        false
+    else (digitsArr |> Set.ofArray) = digitsTillK
+
+let isShortPandigital x =
+    isKPandigital (digits x |> Array.length) x
+
 let product x =
     x |> Seq.reduce(fun x y -> x * y)
 
@@ -243,14 +261,6 @@ let rec coinCount total index =
     | _ when total < 0 -> 0
     | _ when index <= 0 && total >= 1 -> 0
     | _ -> (coinCount total (index - 1)) + (coinCount (total - coins.[index - 1]) index)
-
-let isPandigital x =
-    let digitsArr = digits x
-    let allDigits = Set [1; 2; 3; 4; 5; 6; 7; 8; 9]
-    if digitsArr.Length <> allDigits.Count then
-        false
-    else
-        (digitsArr |> Set.ofArray) = allDigits
 
 let digitFactorials = [0 .. 9] |> List.map smallFactorial
 
