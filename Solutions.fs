@@ -229,3 +229,10 @@ let problem38 =
                     i <- i + 1
                 if isPandigital s then yield s]
     pandigitals |> List.sort |> List.last
+
+let problem39 limit =
+    let l = [for p in 3 .. limit do
+                for a in 1 .. (p / 3) + 2 do
+                    for b in a .. p / 2 do
+                        if (a * a) + (b * b) = ((p - b - a) * (p - b - a)) then yield p]
+    l |> List.groupBy (fun x -> x) |> List.maxBy (fun (k, l) -> l.Length)
