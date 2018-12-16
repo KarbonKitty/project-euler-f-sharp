@@ -272,3 +272,8 @@ let rotate x =
     let lastDigit = x % 10
     let numberOfDigits = digits x |> Array.length
     x / 10 + (lastDigit * pown 10 (numberOfDigits - 1))
+
+let parseQuotedNames (names:string[]) =
+    names |> Array.map (fun x -> x.Split "," |> Array.map (fun y -> y.Replace("\"", "") )) |> Array.concat |> Array.sort
+
+

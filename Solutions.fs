@@ -98,7 +98,7 @@ let problem21 limit =
     [1 .. limit] |> List.map (fun x -> (x, properDivisors x |> List.sum)) |> List.filter (fun (a, b) -> a <> b && areAmicable a b) |> List.sumBy (fun (x, _) -> x)
 
 let problem22 (names:string[]) =
-    let parsedNames = names |> Array.map (fun x -> x.Split "," |> Array.map (fun y -> y.Replace("\"", "") )) |> Array.concat |> Array.sort
+    let parsedNames = parseQuotedNames names
     parsedNames |> Array.mapi (fun i n -> (n |> Seq.map (fun x -> letterValues.[x]) |> Seq.sum) * (i + 1)) |> Array.fold (fun acc el -> acc + bigint el) 0I
 
 // this is very slow (second line 7 seconds, third one 13 seconds)
@@ -243,3 +243,10 @@ let problem40 () =
 
 let problem41 () =
     (sieve 7654321) |> List.sortDescending |> List.find isShortPandigital
+
+let problem42 (w:string[]) =
+    let words = parseQuotedNames w
+    let numbers = words |> Array.map (fun n -> (n |> Seq.map (fun x -> letterValues.[x]) |> Seq.sum))
+    let maxNumber = numbers |> Array.max
+    let triangulars = triangularNumbers |> Seq.takeWhile (fun x -> x <= maxNumber) |> Set.ofSeq
+    numbers |> Array.filter (fun x -> triangulars.Contains x) |> Array.length
