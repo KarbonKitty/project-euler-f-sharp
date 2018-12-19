@@ -250,3 +250,21 @@ let problem42 (w:string[]) =
     let maxNumber = numbers |> Array.max
     let triangulars = triangularNumbers |> Seq.takeWhile (fun x -> x <= maxNumber) |> Set.ofSeq
     numbers |> Array.filter (fun x -> triangulars.Contains x) |> Array.length
+
+let problem43 () =
+    let noRecurringDigits x = (digits x |> Array.distinct |> Array.length) = (digits x |> Array.length)
+    let missingDigit x = (Set [0; 1; 2; 3; 4; 5; 6; 7; 8; 9] - (digits x |> Set.ofArray)) |> Set.toList |> List.map (fun x -> bigint x) |> List.head
+    let f x a =
+        let t = a |> List.map (fun x -> x / 10I) |> Set.ofList
+        [x .. x .. 987I] |> List.filter noRecurringDigits |> List.filter (fun y -> Set.contains (y % 100I) t)
+    let h a b s =
+        a |> List.map (fun x -> b |> List.filter (fun y -> (y % 100I) = (x / s)) |> List.map (fun z -> x % s + z * s)) |> List.concat |> List.filter noRecurringDigits
+    let g p q a b =
+        let c = f p a
+        let d = h b c q
+        c, d
+
+    let d8d9d10 = [17I .. 17I .. 987I] |> List.filter noRecurringDigits
+    let _, r = [(13I, 10I); (11I, 100I); (7I, 1000I); (5I, 10000I); (3I, 100000I); (2I, 1000000I)] |> List.fold (fun s (x, y) -> g x y (fst s) (snd s)) (d8d9d10, d8d9d10)
+
+    r |> List.filter (hasXDigits 9) |> List.map (fun x -> (missingDigit x) * 1000000000I + x) |> List.sum

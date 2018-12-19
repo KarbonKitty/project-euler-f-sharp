@@ -17,6 +17,12 @@ let letterValues = [ 'A', 1; 'B', 2; 'C', 3; 'D', 4; 'E', 5; 'F', 6; 'G', 7; 'H'
 let digits n =
     n.ToString().ToCharArray() |> Array.map(fun c -> c.ToString()) |> Array.map int
 
+let noOfDigits n =
+    n |> digits |> Array.length
+
+let hasXDigits x n =
+    noOfDigits n = x
+
 let isPandigital x =
     let digitsArr = digits x
     let allDigits = Set [1; 2; 3; 4; 5; 6; 7; 8; 9]
