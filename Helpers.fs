@@ -10,6 +10,12 @@ let triangularNumbers = Seq.unfold(fun (acc, num) -> Some(num + acc, (num + acc,
 
 let pentagonalNumbers = Seq.unfold(fun n -> Some((n * ((3 * n) - 1)) / 2, n + 1)) 1
 
+let hexagonalNumbers = Seq.unfold(fun n -> Some((n * (2 * n - 1)), n + 1)) 1
+
+let isPentagonal x =
+    let t = (1.0 + sqrt (1.0 + (24.0 * x))) / 6.0
+    t = floor t
+
 let square n = n * n
 
 let (|Even|Odd|) x = if x % 2 = 0 then Even else Odd

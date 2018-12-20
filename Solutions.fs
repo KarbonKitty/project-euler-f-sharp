@@ -271,11 +271,13 @@ let problem43 () =
 
 let problem44 () =
     let limit = 10000
-    let pentagonalSet = pentagonalNumbers |> Seq.take limit |> Set.ofSeq
     let pentagonalArray = pentagonalNumbers |> Seq.take limit |> Array.ofSeq
     let x = seq { for i in 0 .. limit - 1 do
                   for j in 0 .. i do
-                      if Set.contains (pentagonalArray.[i] - pentagonalArray.[j]) pentagonalSet then
-                          if Set.contains (pentagonalArray.[i] + pentagonalArray.[j]) pentagonalSet then
+                      if isPentagonal (float (pentagonalArray.[i] - pentagonalArray.[j])) then
+                          if isPentagonal (float(pentagonalArray.[i] + pentagonalArray.[j])) then
                               yield pentagonalArray.[i] - pentagonalArray.[j] }
     x |> Seq.take 1 |> Seq.head
+
+let problem45 start =
+    hexagonalNumbers |> Seq.skip start |> Seq.find (fun x -> isPentagonal (float x))
