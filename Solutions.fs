@@ -268,3 +268,14 @@ let problem43 () =
     let _, r = [(13I, 10I); (11I, 100I); (7I, 1000I); (5I, 10000I); (3I, 100000I); (2I, 1000000I)] |> List.fold (fun s (x, y) -> g x y (fst s) (snd s)) (d8d9d10, d8d9d10)
 
     r |> List.filter (hasXDigits 9) |> List.map (fun x -> (missingDigit x) * 1000000000I + x) |> List.sum
+
+let problem44 () =
+    let limit = 10000
+    let pentagonalSet = pentagonalNumbers |> Seq.take limit |> Set.ofSeq
+    let pentagonalArray = pentagonalNumbers |> Seq.take limit |> Array.ofSeq
+    let x = seq { for i in 0 .. limit - 1 do
+                  for j in 0 .. i do
+                      if Set.contains (pentagonalArray.[i] - pentagonalArray.[j]) pentagonalSet then
+                          if Set.contains (pentagonalArray.[i] + pentagonalArray.[j]) pentagonalSet then
+                              yield pentagonalArray.[i] - pentagonalArray.[j] }
+    x |> Seq.take 1 |> Seq.head

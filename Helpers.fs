@@ -8,6 +8,8 @@ let naturalNumbersFrom (n:int64) = Seq.unfold (fun (x:int64) -> Some(x, x+1L)) n
 
 let triangularNumbers = Seq.unfold(fun (acc, num) -> Some(num + acc, (num + acc, num + 1))) (0, 1)
 
+let pentagonalNumbers = Seq.unfold(fun n -> Some((n * ((3 * n) - 1)) / 2, n + 1)) 1
+
 let square n = n * n
 
 let (|Even|Odd|) x = if x % 2 = 0 then Even else Odd
