@@ -12,6 +12,8 @@ let pentagonalNumbers = Seq.unfold(fun n -> Some((n * ((3 * n) - 1)) / 2, n + 1)
 
 let hexagonalNumbers = Seq.unfold(fun n -> Some((n * (2 * n - 1)), n + 1)) 1
 
+let isInt x = x = floor x
+
 let isPentagonal x =
     let t = (1.0 + sqrt (1.0 + (24.0 * x))) / 6.0
     t = floor t

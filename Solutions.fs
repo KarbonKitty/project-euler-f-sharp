@@ -281,3 +281,10 @@ let problem44 () =
 
 let problem45 start =
     hexagonalNumbers |> Seq.skip start |> Seq.find (fun x -> isPentagonal (float x))
+
+let problem46 () =
+    let odds = Seq.unfold (fun s -> Some(s, s + 2)) 9
+    let f x =
+        let primes = sieve x
+        primes |> List.fold (fun a y -> a || isInt (sqrt ((float (x - y)) / 2.0))) false
+    odds |> Seq.filter (fun x -> not (f x)) |> Seq.take 1 |> Seq.head
