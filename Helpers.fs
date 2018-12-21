@@ -143,6 +143,9 @@ let pythagoreanTriplets n =
 let numOfDistinctFactors x =
     factors x |> List.distinct |> List.length
 
+let numOfDistinctPrimeFactors x =
+    primeFactors x |> List.distinct |> List.length
+
 let collatzSequence = Seq.unfold (fun (s:int64) -> if s = 0L then None else if s = 1L then Some(s, 0L) else Some(s, if s % 2L = 0L then (s / 2L) else (3L * s + 1L)))
 
 // only works with rectangle grid
