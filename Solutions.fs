@@ -293,3 +293,6 @@ let problem47 n =
     let ints = Seq.unfold (fun s -> Some(s, s + 1)) 1
     let windowed = Seq.windowed n ints
     windowed |> Seq.find (fun x -> x |> Array.forall (fun t -> numOfDistinctPrimeFactors t = n))
+
+let problem48 n =
+    ([1I .. n] |> List.reduce (fun a x -> a + pown x (int x))) % pown 10I 10
