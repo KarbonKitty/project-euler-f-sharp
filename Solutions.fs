@@ -296,3 +296,16 @@ let problem47 n =
 
 let problem48 n =
     ([1I .. n] |> List.reduce (fun a x -> a + pown x (int x))) % pown 10I 10
+
+let problem49 () =
+    // faster than set comparison
+    let sortedDigits x = digits x |> Array.sort
+    // remove the sequence from the example
+    let primes = sieve 10000 |> List.filter (fun x -> x >= 1000 && x <> 1487 && x <> 4817 && x <> 8147) |> Set.ofList
+    [for p in primes do
+        for j in 2 .. 2 .. (10000 - p) / 2 do
+            let q = p + j
+            let r = q + j
+            if Set.contains q primes && Set.contains r primes then
+                if sortedDigits p = sortedDigits q && sortedDigits q = sortedDigits r then
+                    yield p, q, r] |> List.head
