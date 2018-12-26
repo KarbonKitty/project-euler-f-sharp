@@ -309,3 +309,25 @@ let problem49 () =
             if Set.contains q primes && Set.contains r primes then
                 if sortedDigits p = sortedDigits q && sortedDigits q = sortedDigits r then
                     yield p, q, r] |> List.head
+
+let problem50 limit =
+    let primes = sieve limit |> List.sort |> Array.ofList
+    let primeSet = primes |> Set.ofArray
+    let partialSums (arr:int[]) =
+        let mutable sum = 0
+        let mutable i = 0
+        while i < arr.Length && sum < limit do
+            let x = arr.[i]
+            sum <- sum + x
+            arr.[i] <- sum
+            i <- i + 1
+        arr |> Array.take i
+
+    let checkPrime x = x < limit && Set.contains x primeSet
+
+    let t = [for i in 0 .. primes.Length - 1 do
+                let ps = primes |> Array.skip i |> partialSums
+                let index = ps |> Array.findIndexBack checkPrime
+                yield ps.[index], index]
+    t |> List.maxBy (fun (x, y) -> y) |> fst
+
