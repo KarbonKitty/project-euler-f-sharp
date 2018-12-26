@@ -295,4 +295,5 @@ let rotate x =
 let parseQuotedNames (names:string[]) =
     names |> Array.map (fun x -> x.Split "," |> Array.map (fun y -> y.Replace("\"", "") )) |> Array.concat |> Array.sort
 
-
+let numberFromArray (arr:int[]) =
+    arr |> Array.rev |> Array.fold (fun s e -> fst s + (snd s) * e, (snd s) * 10) (0, 1) |> fst

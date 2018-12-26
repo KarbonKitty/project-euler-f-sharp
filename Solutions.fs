@@ -331,3 +331,30 @@ let problem50 limit =
                 yield ps.[index], index]
     t |> List.maxBy (fun (x, y) -> y) |> fst
 
+let problem51 () =
+    // common for maxRepeatingDigits and repeatDigitsReplacement
+    let f d =
+        d |> Array.groupBy id |> Array.maxBy (fun x -> (snd x) |> Array.length)
+    // how many times a most-recurring digits shows up in a number
+    let maxRepeatingDigits x =
+        f (digits x) |> snd |> Array.length
+    // convert number to digits array and replace the most often occuring digit with -1
+    let repeatDigitsReplacement num =
+        let d = digits num
+        let commonDigit = f d |> fst
+        d |> Array.map (fun x -> if x = commonDigit then -1 else x)
+    // from a digit array with -1 as wildcard, generate all 10 possible variations with single-digit replacing
+    // all the wildcards
+    let groupFromMask mask =
+        [for i in 0 .. 9 do
+            yield mask |> Array.map (fun x -> if x = -1 then i else x) |> numberFromArray]
+
+    let primes = sieve 1000000
+    // we are only insterested in primes that have the same digits repeat at least three times (less than that, and they can't be eight-fold), and convert them to masks with most-recurring digit replaced with wildcard
+    let candidates = primes |> List.filter (fun x -> maxRepeatingDigits x >= 3) |> List.map (fun x -> x, repeatDigitsReplacement x)
+    // group masks, and only take into further consideration those that have at least five numbers that generated them
+    let candidateMasks = candidates |> List.groupBy snd |> List.filter (fun x -> (snd x |> List.length) > 5) |> List.map fst
+    // create groups from each of the candidate masks, filter only primes from them, and find the groups that are eight-fold
+    // note: there are two such groups, but filtering the one that we are actually interested in is left as an exercise for the reader ;)
+    candidateMasks |> List.map groupFromMask |> List.map (fun x -> x |> List.filter (int64 >> isPrime)) |> List.filter (fun x -> x |> List.length = 8)
+
