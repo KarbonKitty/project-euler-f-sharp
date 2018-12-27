@@ -290,7 +290,6 @@ let problem46 () =
     odds |> Seq.filter (fun x -> not (f x)) |> Seq.take 1 |> Seq.head
 
 let problem47 n =
-    let ints = Seq.unfold (fun s -> Some(s, s + 1)) 1
     let windowed = Seq.windowed n ints
     windowed |> Seq.find (fun x -> x |> Array.forall (fun t -> numOfDistinctPrimeFactors t = n))
 
@@ -358,3 +357,10 @@ let problem51 () =
     // note: there are two such groups, but filtering the one that we are actually interested in is left as an exercise for the reader ;)
     candidateMasks |> List.map groupFromMask |> List.map (fun x -> x |> List.filter (int64 >> isPrime)) |> List.filter (fun x -> x |> List.length = 8)
 
+let problem52 n =
+    let sameDigitMultiples x =
+        let mutable i = 1
+        while sameDigits (x * i) x do
+            i <- i + 1
+        i - 1
+    ints |> Seq.skip 1 |> Seq.find (fun x -> sameDigitMultiples x = n)

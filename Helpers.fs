@@ -12,6 +12,8 @@ let pentagonalNumbers = Seq.unfold(fun n -> Some((n * ((3 * n) - 1)) / 2, n + 1)
 
 let hexagonalNumbers = Seq.unfold(fun n -> Some((n * (2 * n - 1)), n + 1)) 1
 
+let ints = Seq.unfold (fun s -> Some(s, s + 1)) 1
+
 let isInt x = x = floor x
 
 let isPentagonal x =
@@ -32,6 +34,9 @@ let noOfDigits n =
 
 let hasXDigits x n =
     noOfDigits n = x
+
+let sameDigits x y =
+    (digits x |> Array.sort) = (digits y |> Array.sort)
 
 let isPandigital x =
     let digitsArr = digits x
