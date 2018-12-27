@@ -364,3 +364,9 @@ let problem52 n =
             i <- i + 1
         i - 1
     ints |> Seq.skip 1 |> Seq.find (fun x -> sameDigitMultiples x = n)
+
+let problem53 n limit =
+    let c n r = (factorial n) / ((factorial r) * (factorial (n - r)))
+    [for n' in 1I .. n do
+        for r in 1I .. n' - 1I do
+            if c n' r > limit then yield true] |> List.length
