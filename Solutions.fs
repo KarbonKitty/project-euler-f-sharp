@@ -2,6 +2,7 @@ module Solutions
 
 open System
 open Helpers
+open Cards
 open System.Numerics
 
 let problem1 limit =
@@ -370,3 +371,10 @@ let problem53 n limit =
     [for n' in 1I .. n do
         for r in 1I .. n' - 1I do
             if c n' r > limit then yield true] |> List.length
+
+let problem54 (data:string[]) =
+    let parseCard (s:string) = s.ToCharArray() |> (fun x -> { Rank = rankMap.[x.[0]]; Suit = suitMap.[x.[1]] } )
+    let cardStrings = data |> Array.map (fun x -> x.Split ' ' |> Array.map parseCard |> Array.splitInto 2 |> (fun x -> (x.[0] |> Array.sortBy (fun x -> x.Rank), x.[1] |> Array.sortBy (fun x -> x.Rank))))
+
+    cardStrings |> Array.map (fun (x, y) -> compareHandRanks (handRank x) (handRank y)) |> Array.filter (fun x -> x = 1) |> Array.length
+

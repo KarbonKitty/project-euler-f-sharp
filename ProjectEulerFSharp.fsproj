@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Cards.fs" />
     <Compile Include="Helpers.fs" />
     <Compile Include="Solutions.fs" />
     <Compile Include="Program.fs" />
