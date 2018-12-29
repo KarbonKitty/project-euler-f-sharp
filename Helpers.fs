@@ -302,3 +302,9 @@ let parseQuotedNames (names:string[]) =
 
 let numberFromArray (arr:int[]) =
     arr |> Array.rev |> Array.fold (fun s e -> fst s + (snd s) * e, (snd s) * 10) (0, 1) |> fst
+
+let bigNumberFromArray (arr:bigint[]) =
+    arr |> Array.rev |> Array.fold (fun s e -> fst s + (snd s) * e, (snd s) * 10I) (0I, 1I) |> fst
+
+let reverseNumber x =
+    x.ToString().ToCharArray() |> Array.rev |> Array.map (string >> int >> bigint) |> bigNumberFromArray

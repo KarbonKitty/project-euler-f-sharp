@@ -378,3 +378,13 @@ let problem54 (data:string[]) =
 
     cardStrings |> Array.map (fun (x, y) -> compareHandRanks (handRank x) (handRank y)) |> Array.filter (fun x -> x = 1) |> Array.length
 
+let problem55 limit =
+    let isLychrel x =
+        let mutable i = 0
+        let mutable y = x + reverseNumber x
+        while i < 50 && not (isPalindrome y) do
+            i <- i + 1
+            y <- y + reverseNumber y
+        not (isPalindrome y)
+
+    [1I .. limit] |> List.filter isLychrel |> List.length
