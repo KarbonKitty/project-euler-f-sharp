@@ -388,3 +388,9 @@ let problem55 limit =
         not (isPalindrome y)
 
     [1I .. limit] |> List.filter isLychrel |> List.length
+
+let problem56 a b =
+    [for a' in 1I .. a do
+        for b' in 1 .. b do
+            yield pown a' b' |> digits |> Array.sum] |> List.max
+
