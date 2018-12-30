@@ -394,3 +394,7 @@ let problem56 a b =
         for b' in 1 .. b do
             yield pown a' b' |> digits |> Array.sum] |> List.max
 
+let problem57 limit =
+    Seq.unfold (fun s -> Some(s, (fst s + snd s, (2I * fst s + snd s)))) (2I, 3I) |> Seq.take limit |> Seq.filter (fun (x, y) -> (digits x |> Array.length) < (digits y |> Array.length)) |> Seq.length
+
+
