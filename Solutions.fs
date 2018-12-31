@@ -397,4 +397,15 @@ let problem56 a b =
 let problem57 limit =
     Seq.unfold (fun s -> Some(s, (fst s + snd s, (2I * fst s + snd s)))) (2I, 3I) |> Seq.take limit |> Seq.filter (fun (x, y) -> (digits x |> Array.length) < (digits y |> Array.length)) |> Seq.length
 
+let problem58 limit =
+    let rec spiral limit round number numbers primes =
+        let newNumbersList = [1 .. 4] |> List.map (fun x -> number + x * 2 * round)
+        let newPrimes = newNumbersList |> List.filter (int64 >> isPrime) |> List.length
+        let newNumbers = newNumbersList |> List.length
+        let totalNumbers = numbers + newNumbers
+        let totalPrimes = primes + newPrimes
+        let proportion = (float totalPrimes) / (float totalNumbers)
+        if proportion < limit then round else spiral limit (round + 1) (number + round * 8) totalNumbers totalPrimes
+
+    (spiral limit 1 1 1 0) * 2 + 1
 
