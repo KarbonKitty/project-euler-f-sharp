@@ -409,3 +409,30 @@ let problem58 limit =
 
     (spiral limit 1 1 1 0) * 2 + 1
 
+let problem59 (numbers:string) =
+    let chars = numbers.Split(',') |> Array.map (int >> char)
+
+    let keys = [for i1 in 'a' .. 'z' do
+                    for i2 in 'a' .. 'z' do
+                        for i3 in 'a' .. 'z' do
+                            yield [|i1; i2; i3|]]
+
+    let decipher c code =
+        char ((byte code) ^^^ (byte c))
+
+    let isValid c =
+        c >= 32 && c < 126 && c <> 94 && c <> 96
+
+    let rec decrypt cypher i (key:char[]) msg =
+        if i >= (cypher |> Array.length) then
+            Some(msg |> List.rev)
+        else
+            let code = key.[i % (key |> Array.length)]
+            let plain = decipher cypher.[i] code
+            if isValid (int plain) then
+                decrypt cypher (i + 1) key (plain :: msg)
+            else
+                None
+
+    keys |> List.map (fun x -> decrypt chars 0 x []) |> List.filter (fun x -> x <> None) |> List.map (fun x -> x.Value) |> List.head |> List.map int |> List.sum
+
