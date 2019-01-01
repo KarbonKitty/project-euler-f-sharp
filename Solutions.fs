@@ -436,3 +436,61 @@ let problem59 (numbers:string) =
 
     keys |> List.map (fun x -> decrypt chars 0 x []) |> List.filter (fun x -> x <> None) |> List.map (fun x -> x.Value) |> List.head |> List.map int |> List.sum
 
+// this is quite slow (~160s), and not very functional, but it works
+// TODO: improve
+let problem60 n =
+    let t = 10000
+    let primes = sieve t |> List.sort
+    let primesSet = sieve (t * t) |> Set.ofList
+    let pairs = new System.Collections.Generic.Dictionary<_,_>()
+
+    let f a b =
+        let pair = if a < b then (a, b) else (b, a)
+        match pairs.TryGetValue(pair) with
+        | true, v -> v
+        | false, _ ->
+            let c = int ((string a) + (string b))
+            let d = int ((string b) + (string a))
+            let result = Set.contains c primesSet && Set.contains d primesSet
+            pairs.Add(pair, result)
+            result
+
+    let f' a b =
+        let c = int ((string a) + (string b))
+        let d = int ((string b) + (string a))
+        Set.contains c primesSet && Set.contains d primesSet
+
+    let f'' a b =
+        let ad = int (ceil (log10 (float a)))
+        let bd = int (ceil (log10 (float b)))
+        let c = (a * pown 10 bd) + b
+        let d = (b * pown 10 ad) + a
+        Set.contains c primesSet && Set.contains d primesSet
+
+    let f''' a b =
+        let pair = if a < b then (a, b) else (b, a)
+        match pairs.TryGetValue(pair) with
+        | true, v -> v
+        | false, _ ->
+            let ad = int (ceil (log10 (float a)))
+            let bd = int (ceil (log10 (float b)))
+            let c = (a * pown 10 bd) + b
+            let d = (b * pown 10 ad) + a
+            let result = Set.contains c primesSet && Set.contains d primesSet
+            pairs.Add(pair, result)
+            result
+
+    let g group primes =
+        [for p in primes do
+            if group |> List.fold (fun s g -> s && f'' p g) true then yield p :: group]
+
+    let h groups primes =
+        groups |> List.map (fun x -> g x primes) |> List.concat
+
+    let singles = primes |> List.map (fun x -> [x])
+    let pairs = h singles primes
+    let triples = h pairs primes
+    let quads = h triples primes
+    let quints = h quads primes
+
+    quints |> List.map (fun x -> List.sum x) |> List.max
